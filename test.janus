@@ -1,0 +1,21 @@
+// Simple test program for debugging
+procedure main
+    local x = 42
+    local y = 10
+    local result = x + y
+    
+    output "Starting calculation..."
+    output "x = " + x
+    output "y = " + y
+    
+    result = x * y
+    output "x * y = " + result
+    
+    if result > 400 then
+        output "Result is large"
+    else
+        output "Result is small"
+    end
+    
+    output "Program complete"
+end

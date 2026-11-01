@@ -1,0 +1,115 @@
+{
+  "$schema": "https://raw.githubusercontent.com/martinring/tmlanguage/master/tmlanguage.json",
+  "name": "Janus",
+  "scopeName": "source.janus",
+  "patterns": [
+    {
+      "include": "#comments"
+    },
+    {
+      "include": "#procedure-declarations"
+    },
+    {
+      "include": "#procedure-calls"
+    },
+    {
+      "include": "#variable-declarations"
+    },
+    {
+      "include": "#keywords"
+    },
+    {
+      "include": "#types"
+    },
+    {
+      "include": "#builtins"
+    },
+    {
+      "include": "#numbers"
+    },
+    {
+      "include": "#operators"
+    }
+  ],
+  "repository": {
+    "comments": {
+      "patterns": [
+        {
+          "name": "comment.line.double-slash.janus",
+          "match": "//.*$"
+        },
+        {
+          "name": "comment.block.janus",
+          "begin": "/\\*",
+          "beginCaptures": {
+            "0": {
+              "name": "punctuation.definition.comment.begin.janus"
+            }
+          },
+          "end": "\\*/",
+          "endCaptures": {
+            "0": {
+              "name": "punctuation.definition.comment.end.janus"
+            }
+          }
+        }
+      ]
+    },
+    "procedure-declarations": {
+      "match": "\\b(procedure)\\s+([A-Za-z_][A-Za-z0-9_]*)",
+      "captures": {
+        "1": {
+          "name": "keyword.declaration.function.janus"
+        },
+        "2": {
+          "name": "entity.name.function.janus"
+        }
+      }
+    },
+    "procedure-calls": {
+      "match": "\\b(call|uncall)\\s+([A-Za-z_][A-Za-z0-9_]*)",
+      "captures": {
+        "1": {
+          "name": "keyword.control.janus"
+        },
+        "2": {
+          "name": "entity.name.function.janus"
+        }
+      }
+    },
+    "variable-declarations": {
+      "match": "\\b(local|delocal)?\\s*(int)\\s+([A-Za-z_][A-Za-z0-9_]*)",
+      "captures": {
+        "1": {
+          "name": "keyword.declaration.janus"
+        },
+        "2": {
+          "name": "storage.type.janus"
+        },
+        "3": {
+          "name": "variable.other.definition.janus"
+        }
+      }
+    },
+    "keywords": {
+      "name": "keyword.control.janus",
+      "match": "\\b(?:if|then|else|fi|from|loop|do|until|call|uncall)\\b"
+    },
+    "types": {
+      "name": "storage.type.janus",
+      "match": "\\bint\\b"
+    },
+    "builtins": {
+      "name": "support.function.builtin.janus",
+      "match": "\\bprint\\b"
+    },
+    "numbers": {
+      "name": "constant.numeric.integer.janus",
+      "match": "\\b[0-9]+\\b"
+    },
+    "operators": {
+      "name": "keyword.operator.janus",
+      "match": "\\+=|-=|\\^=|\\|\\||&&|!=|<=|>=|[|^&=<>+*/%,-]"
+    }
+  }
+}

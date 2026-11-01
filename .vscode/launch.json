@@ -1,0 +1,26 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Run Janus Debugger Extension",
+            "type": "extensionHost",
+            "request": "launch",
+            "args": [
+                "--extensionDevelopmentPath=${workspaceFolder}"
+            ],
+            "outFiles": [
+                "${workspaceFolder}/out/**/*.js"
+            ],
+            "preLaunchTask": "build Janus DAP adapter"
+        },
+        {
+            "name": "Debug mock Janus program",
+            "type": "janus",
+            "request": "launch",
+            "program": "${workspaceFolder}/test.janus",
+            "interpreterPath": "${workspaceFolder}/mock-janus.js",
+            "cwd": "${workspaceFolder}",
+            "args": []
+        }
+    ]
+}

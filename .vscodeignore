@@ -1,0 +1,14 @@
+.gitignore
+.vscode/**
+extension.json
+mock-janus.js
+node_modules/@types/**
+package-lock.json
+src/**
+test/**
+test.janus
+tsconfig.json
+*.vsix
+out/**/*.d.ts
+out/**/*.d.ts.map
+out/**/*.js.map

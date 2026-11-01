@@ -1,0 +1,153 @@
+{
+  "name": "janus-debugger",
+  "displayName": "Janus Debugger",
+  "description": "Debug Adapter Protocol support for the Janus reversible language",
+  "version": "1.0.2",
+  "publisher": "erikjonasson",
+  "author": {
+    "name": "Erik Jonasson",
+    "email": "erikjonassonn@outlook.com"
+  },
+  "license": "MIT",
+  "main": "./out/extension.js",
+  "activationEvents": [
+    "onDebug"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://gitlab.com/ErikJonasson/janus-vscode.git"
+  },
+  "homepage": "https://gitlab.com/ErikJonasson/janus-vscode",
+  "bugs": {
+    "url": "https://gitlab.com/ErikJonasson/janus-vscode/-/issues"
+  },
+  "engines": {
+    "vscode": "^1.74.0",
+    "node": ">=16.0.0"
+  },
+  "categories": [
+    "Debuggers"
+  ],
+  "contributes": {
+    "breakpoints": [
+      {
+        "language": "janus"
+      }
+    ],
+    "debuggers": [
+      {
+        "type": "janus",
+        "label": "Janus Debug",
+        "program": "./out/debugAdapter.js",
+        "runtime": "node",
+        "configurationAttributes": {
+          "launch": {
+            "required": [
+              "program"
+            ],
+            "properties": {
+              "program": {
+                "type": "string",
+                "description": "Absolute path to a Janus source file.",
+                "default": "${workspaceFolder}/program.ja"
+              },
+              "args": {
+                "type": "array",
+                "description": "Command line arguments passed to the program.",
+                "items": {
+                  "type": "string"
+                },
+                "default": []
+              },
+              "cwd": {
+                "type": "string",
+                "description": "Absolute path to the working directory of the program being debugged.",
+                "default": "${workspaceFolder}"
+              },
+              "interpreterPath": {
+                "type": "string",
+                "description": "Path to the Janus interpreter executable.",
+                "default": "${workspaceFolder}/build/janus"
+              }
+            }
+          }
+        },
+        "initialConfigurations": [
+          {
+            "type": "janus",
+            "request": "launch",
+            "name": "Launch Janus Program",
+            "program": "${workspaceFolder}/program.ja",
+            "interpreterPath": "${workspaceFolder}/build/janus"
+          }
+        ],
+        "configurationSnippets": [
+          {
+            "label": "Janus: Launch program",
+            "description": "Debug a Janus program",
+            "body": {
+              "type": "janus",
+              "request": "launch",
+              "name": "Debug Janus Program",
+              "program": "${workspaceFolder}/${1:program.ja}",
+              "interpreterPath": "${workspaceFolder}/build/janus",
+              "cwd": "${workspaceFolder}",
+              "args": []
+            }
+          }
+        ]
+      }
+    ],
+    "languages": [
+      {
+        "id": "janus",
+        "aliases": [
+          "Janus",
+          "janus"
+        ],
+        "extensions": [
+          ".ja",
+          ".janus"
+        ],
+        "configuration": "./language-configuration.json"
+      }
+    ],
+    "grammars": [
+      {
+        "language": "janus",
+        "scopeName": "source.janus",
+        "path": "./syntaxes/janus.tmLanguage.json"
+      }
+    ],
+    "colors": [
+      {
+        "id": "janus.executionBoundary",
+        "description": "Color of the Janus reversible execution boundary.",
+        "defaults": {
+          "dark": "#E5C07B",
+          "light": "#795E00",
+          "highContrast": "#FFFF00"
+        }
+      }
+    ]
+  },
+  "scripts": {
+    "build": "tsc -p .",
+    "check": "tsc -p . --noEmit",
+    "test": "npm run build && node --test test/*.test.js",
+    "watch": "tsc -p . --watch",
+    "start": "node out/debugAdapter.js",
+    "package": "vsce package",
+    "vscode:prepublish": "npm run build"
+  },
+  "dependencies": {
+    "@vscode/debugadapter": "^1.64.0",
+    "@vscode/debugprotocol": "^1.64.0"
+  },
+  "devDependencies": {
+    "@types/node": "^20.0.0",
+    "@types/vscode": "1.74.0",
+    "@vscode/vsce": "^3.6.2",
+    "typescript": "^5.0.0"
+  }
+}
